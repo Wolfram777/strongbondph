@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+
+  --color-brand-lavender: #cfc3d7;
+  --color-brand-gold: #d6b450;
+  --color-brand-yellow: #efc66c;
+  --color-brand-plum: #6b2b5e;
+  --color-brand-menu: #682d5d;
+
+  --animate-menu-dropdown: menu-dropdown 0.25s ease-out forwards;
+  --animate-menu-dropdown-close: menu-dropdown-close 0.25s ease-in forwards;
+}
+
+@keyframes menu-dropdown {
+  from {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+}
+
+@keyframes menu-dropdown-close {
+  from {
+    opacity: 1;
+    transform: scaleY(1);
+  }
+
+  to {
+    opacity: 0;
+    transform: scaleY(0);
+  }
+}
+
+@layer base {
+  body {
+    @apply font-sans antialiased;
+  }
+}
