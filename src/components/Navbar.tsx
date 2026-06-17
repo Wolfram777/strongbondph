@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
+import { useLenis } from 'lenis/react'
 import { HiArrowRight } from 'react-icons/hi2'
 import { Link } from 'react-router-dom'
 import logo from '../assets/images/logo2.png'
@@ -87,15 +88,9 @@ export default function Navbar() {
   const menuRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20)
-    }
-
-    handleScroll()
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
+  useLenis((lenis) => {
+    setScrolled(lenis.scroll > 20)
+  })
 
   const openMenu = () => {
     if (closeTimeoutRef.current) {

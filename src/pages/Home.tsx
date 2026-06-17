@@ -1,10 +1,89 @@
+import hero from '../assets/images/hero.jpg'
+import kalilayan from '../assets/images/kalilayan.jpg'
+import grandhyatt from '../assets/images/grandhyatt.jpg'
+import vertisnorth from '../assets/images/vertisnorth.jpg'
+import FloatingCircles from '../components/FloatingCircles.tsx'
+
+const categories = [
+  {
+    label: 'BRIDGES',
+    description:
+      'Structural engineering for infrastructure that connects communities.',
+    image: kalilayan,
+    href: '#',
+  },
+  {
+    label: 'RESIDENTIAL',
+    description: 'Quality construction for homes built to last.',
+    image: grandhyatt,
+    href: '#',
+  },
+  {
+    label: 'COMMERCIAL',
+    description: 'Expert solutions for commercial and mixed-use developments.',
+    image: vertisnorth,
+    href: '#',
+  },
+]
+
 export default function Home() {
   return (
     <div>
-      {/* Temporary backgrounds for testing navbar scroll/hover behavior */}
-      <section className="min-h-screen bg-brand-lavender" />
-      <section className="min-h-screen bg-brand-plum" />
-      <section className="min-h-screen bg-brand-yellow/50" />
+      <section className="relative h-screen w-full">
+        <img
+          src={hero}
+          alt="StrongBond PH"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute top-[58%] left-0 w-fit -translate-y-1/2 bg-black/40 py-4 pr-5 pl-4 sm:top-[62%] sm:py-5 sm:pr-8 sm:pl-6 md:top-[65%] md:py-6 md:pr-10 md:pl-8 lg:pr-12">
+          <h1 className="text-2xl leading-tight font-bold tracking-tight text-white sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl">
+            INTEGRITY BEYOND
+            <br />
+            STRUCTURE
+          </h1>
+        </div>
+      </section>
+
+      <section className="relative min-h-screen bg-white">
+        <FloatingCircles />
+        <div
+          className="relative z-10 flex min-h-screen flex-col gap-4 px-4 py-10 sm:gap-5 sm:py-12 md:h-screen md:flex-row md:items-center md:gap-8 md:px-24 md:py-8"
+        >
+        {categories.map((category, index) => (
+          <a
+            key={category.label}
+            href={category.href}
+            style={{ animationDelay: `${index * 150}ms` }}
+            className="group relative min-h-[200px] w-full flex-1 cursor-pointer overflow-hidden rounded-xl opacity-0 animate-category-card-enter sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl"
+          >
+            <img
+              src={category.image}
+              alt={category.label}
+              className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5 md:p-8">
+              <p
+                className="text-2xl font-bold uppercase text-white transition-transform duration-500 ease-out group-hover:-translate-y-2 sm:text-3xl md:text-5xl md:group-hover:-translate-y-3 lg:text-6xl"
+              >
+                {category.label}
+              </p>
+              <div
+                className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out group-hover:grid-rows-[1fr]"
+              >
+                <div className="overflow-hidden">
+                  <p
+                    className="max-w-md translate-y-full pt-1.5 text-xs leading-relaxed text-white/90 transition-transform duration-500 ease-out group-hover:translate-y-0 sm:pt-2 sm:text-sm md:text-base"
+                  >
+                    {category.description}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </a>
+        ))}
+        </div>
+      </section>
     </div>
   )
 }

@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "lenis/dist/lenis.css";
 
 @theme {
   --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
@@ -11,6 +12,8 @@
 
   --animate-menu-dropdown: menu-dropdown 0.25s ease-out forwards;
   --animate-menu-dropdown-close: menu-dropdown-close 0.25s ease-in forwards;
+  --animate-category-card-enter: category-card-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-float-circle: float-circle 20s ease-in-out infinite;
 }
 
 @keyframes menu-dropdown {
@@ -22,6 +25,37 @@
   to {
     opacity: 1;
     transform: scaleY(1);
+  }
+}
+
+@keyframes category-card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(48px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float-circle {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  25% {
+    transform: translate3d(18px, -28px, 0) scale(1.04);
+  }
+
+  50% {
+    transform: translate3d(-14px, 16px, 0) scale(0.96);
+  }
+
+  75% {
+    transform: translate3d(22px, 12px, 0) scale(1.02);
   }
 }
 
@@ -38,6 +72,15 @@
 }
 
 @layer base {
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
   body {
     @apply font-sans antialiased;
   }
