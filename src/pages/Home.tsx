@@ -1,8 +1,8 @@
+import { useEffect, useRef, useState } from 'react'
 import hero from '../assets/images/hero.jpg'
 import kalilayan from '../assets/images/kalilayan.jpg'
 import grandhyatt from '../assets/images/grandhyatt.jpg'
 import vertisnorth from '../assets/images/vertisnorth.jpg'
-import FloatingCircles from '../components/FloatingCircles.tsx'
 
 const categories = [
   {
@@ -27,6 +27,27 @@ const categories = [
 ]
 
 export default function Home() {
+  const sectionRef = useRef<HTMLElement>(null)
+  const [cardsVisible, setCardsVisible] = useState(false)
+
+  useEffect(() => {
+    const section = sectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setCardsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.2 },
+    )
+
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
   return (
     <div>
       <section className="relative h-screen w-full">
@@ -44,17 +65,24 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="relative min-h-screen bg-white">
-        <FloatingCircles />
-        <div
-          className="relative z-10 flex min-h-screen flex-col gap-4 px-4 py-10 sm:gap-5 sm:py-12 md:h-screen md:flex-row md:items-center md:gap-8 md:px-24 md:py-8"
-        >
+      <section
+        ref={sectionRef}
+        className="flex min-h-screen flex-col gap-4 px-4 py-10 sm:gap-5 sm:py-12 md:h-screen md:flex-row md:items-center md:gap-8 md:px-24 md:py-8"
+      >
         {categories.map((category, index) => (
           <a
             key={category.label}
             href={category.href}
-            style={{ animationDelay: `${index * 150}ms` }}
-            className="group relative min-h-[200px] w-full flex-1 cursor-pointer overflow-hidden rounded-xl opacity-0 animate-category-card-enter sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl"
+            style={
+              cardsVisible
+                ? { animationDelay: `${index * 150}ms` }
+                : undefined
+            }
+            className={`group relative min-h-[200px] w-full flex-1 cursor-pointer overflow-hidden rounded-xl sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl ${
+              cardsVisible
+                ? 'animate-category-card-enter'
+                : 'opacity-0 translate-y-12'
+            }`}
           >
             <img
               src={category.image}
@@ -82,7 +110,6 @@ export default function Home() {
             </div>
           </a>
         ))}
-        </div>
       </section>
     </div>
   )
