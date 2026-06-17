@@ -56,7 +56,9 @@ export default function Home() {
           alt="StrongBond PH"
           className="h-full w-full object-cover"
         />
-        <div className="absolute top-[58%] left-0 w-fit -translate-y-1/2 bg-black/40 py-4 pr-5 pl-4 sm:top-[62%] sm:py-5 sm:pr-8 sm:pl-6 md:top-[65%] md:py-6 md:pr-10 md:pl-8 lg:pr-12">
+        <div
+          className="absolute top-[58%] left-0 w-fit animate-hero-headline-slide-in bg-black/40 py-4 pr-5 pl-4 sm:top-[62%] sm:py-5 sm:pr-8 sm:pl-6 md:top-[65%] md:py-6 md:pr-10 md:pl-8 lg:pr-12"
+        >
           <h1 className="text-2xl leading-tight font-bold tracking-tight text-white sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl">
             INTEGRITY BEYOND
             <br />
@@ -74,14 +76,10 @@ export default function Home() {
             key={category.label}
             href={category.href}
             style={
-              cardsVisible
-                ? { animationDelay: `${index * 150}ms` }
-                : undefined
+              cardsVisible ? { animationDelay: `${index * 200}ms` } : undefined
             }
-            className={`group relative min-h-[200px] w-full flex-1 cursor-pointer overflow-hidden rounded-xl sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl ${
-              cardsVisible
-                ? 'animate-category-card-enter'
-                : 'opacity-0 translate-y-12'
+            className={`group relative min-h-[200px] w-full flex-1 cursor-pointer overflow-hidden rounded-xl opacity-0 sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl ${
+              cardsVisible ? 'animate-category-card-enter' : ''
             }`}
           >
             <img

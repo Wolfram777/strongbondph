@@ -12,7 +12,8 @@
 
   --animate-menu-dropdown: menu-dropdown 0.25s ease-out forwards;
   --animate-menu-dropdown-close: menu-dropdown-close 0.25s ease-in forwards;
-  --animate-category-card-enter: category-card-enter 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  --animate-category-card-enter: category-card-fade-in 1.2s ease-out forwards;
+  --animate-hero-headline-slide-in: hero-headline-slide-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 @keyframes menu-dropdown {
@@ -27,15 +28,23 @@
   }
 }
 
-@keyframes category-card-enter {
+@keyframes category-card-fade-in {
   from {
     opacity: 0;
-    transform: translateY(48px);
   }
 
   to {
     opacity: 1;
-    transform: translateY(0);
+  }
+}
+
+@keyframes hero-headline-slide-in {
+  from {
+    transform: translate(-100%, -50%);
+  }
+
+  to {
+    transform: translate(0, -50%);
   }
 }
 
