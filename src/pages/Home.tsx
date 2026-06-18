@@ -182,7 +182,7 @@ export default function Home() {
         <div className="flex flex-col gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:px-8 lg:grid lg:h-screen lg:grid-cols-5 lg:gap-0 lg:px-0 lg:py-0">
           <div className="relative lg:col-span-2 lg:min-h-0">
             <div
-              className={`lg:absolute lg:left-24 lg:top-8 lg:z-10 ${
+              className={`lg:absolute lg:left-24 lg:top-[calc((100vh-min(72vh,600px))/2)] lg:z-10 ${
                 productsVisible
                   ? 'animate-products-slide-in-left'
                   : 'opacity-0 -translate-x-12'
