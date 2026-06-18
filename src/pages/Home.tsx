@@ -1,8 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import hero from '../assets/images/hero.jpg'
+import { HiArrowRight } from 'react-icons/hi2'
+import { Link } from 'react-router-dom'
+import hero from '../assets/images/hero2.jpg'
 import kalilayan from '../assets/images/kalilayan.jpg'
 import grandhyatt from '../assets/images/grandhyatt.jpg'
 import vertisnorth from '../assets/images/vertisnorth.jpg'
+import FloatingTriangles from '../components/FloatingTriangles.tsx'
 
 const categories = [
   {
@@ -57,20 +60,44 @@ export default function Home() {
           className="h-full w-full object-cover"
         />
         <div
-          className="absolute top-[58%] left-0 w-fit animate-hero-headline-slide-in bg-black/40 py-4 pr-5 pl-4 sm:top-[62%] sm:py-5 sm:pr-8 sm:pl-6 md:top-[65%] md:py-6 md:pr-10 md:pl-8 lg:pr-12"
+          className="absolute top-[58%] left-0 flex w-fit flex-col items-start text-left animate-hero-headline-slide-in py-4 pl-4 pr-5 sm:top-[62%] sm:py-5 sm:pl-6 sm:pr-8 md:top-[65%] md:py-6 md:pl-8 md:pr-10 lg:pr-12"
         >
-          <h1 className="text-2xl leading-tight font-bold tracking-tight text-white sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl">
+          <h1 className="text-2xl leading-tight font-bold tracking-tight text-brand-menu sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl">
             INTEGRITY BEYOND
             <br />
             STRUCTURE
           </h1>
+          <p className="mt-3 text-xs leading-snug text-brand-menu sm:mt-4 sm:text-sm md:text-base md:whitespace-nowrap lg:text-lg">
+            Retrofitting the foundations of a first-world Philippines,
+            <br className="md:hidden" />
+            &nbsp; one building at a time.
+          </p>
+          <Link
+            to="/contact-us"
+            className="group mt-4 inline-flex items-center gap-2 rounded-md bg-brand-gold px-6 py-3 text-sm font-semibold text-brand-plum transition-colors duration-300 hover:bg-brand-yellow sm:mt-5 sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base"
+          >
+            Start Your Project
+            <HiArrowRight
+              className="h-4 w-4 animate-cta-arrow-nudge sm:h-5 sm:w-5"
+              aria-hidden="true"
+            />
+          </Link>
         </div>
       </section>
 
       <section
         ref={sectionRef}
-        className="flex min-h-screen flex-col gap-4 px-4 py-10 sm:gap-5 sm:py-12 md:h-screen md:flex-row md:items-center md:gap-8 md:px-24 md:py-8"
+        className="relative flex min-h-screen flex-col gap-2 bg-white px-4 py-10 sm:py-12 md:gap-3 md:px-24 md:py-8"
       >
+        <FloatingTriangles />
+        <h2
+          className={`relative z-10 text-center text-3xl font-bold uppercase tracking-tight text-brand-menu sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl ${
+            cardsVisible ? 'animate-category-card-enter' : 'opacity-0'
+          }`}
+        >
+          OUR PROJECTS
+        </h2>
+        <div className="relative z-10 flex flex-col gap-4 sm:gap-5 md:flex-row md:gap-8">
         {categories.map((category, index) => (
           <a
             key={category.label}
@@ -88,6 +115,11 @@ export default function Home() {
               className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+            <HiArrowRight
+              strokeWidth={3}
+              className="absolute top-4 right-4 z-10 h-8 w-8 text-white transition-colors duration-300 group-hover:animate-card-arrow-nudge group-hover:text-brand-plum sm:top-5 sm:right-5 sm:h-10 sm:w-10 md:top-8 md:right-8 md:h-12 md:w-12"
+              aria-hidden="true"
+            />
             <div className="absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5 md:p-8">
               <p
                 className="text-2xl font-bold uppercase text-white transition-transform duration-500 ease-out group-hover:-translate-y-2 sm:text-3xl md:text-5xl md:group-hover:-translate-y-3 lg:text-6xl"
@@ -108,6 +140,7 @@ export default function Home() {
             </div>
           </a>
         ))}
+        </div>
       </section>
     </div>
   )
