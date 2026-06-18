@@ -122,7 +122,7 @@ const triangles: FloatingTriangle[] = [
 export default function FloatingTriangles() {
   return (
     <div
-      className="pointer-events-none absolute inset-0 overflow-hidden"
+      className="pointer-events-none absolute inset-0 overflow-hidden [--triangle-scale:0.38] sm:[--triangle-scale:0.52] md:[--triangle-scale:0.68] lg:[--triangle-scale:0.82] xl:[--triangle-scale:1]"
       aria-hidden="true"
     >
       {triangles.map((triangle, index) => (
@@ -134,8 +134,8 @@ export default function FloatingTriangles() {
               : 'animate-float-triangle'
           }`}
           style={{
-            width: triangle.size,
-            height: triangle.size,
+            width: `calc(${triangle.size}px * var(--triangle-scale))`,
+            height: `calc(${triangle.size}px * var(--triangle-scale))`,
             top: `${triangle.top}%`,
             left: `${triangle.left}%`,
             backgroundColor: triangle.color,
