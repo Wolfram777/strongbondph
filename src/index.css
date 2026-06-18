@@ -13,6 +13,7 @@
   --animate-menu-dropdown: menu-dropdown 0.25s ease-out forwards;
   --animate-menu-dropdown-close: menu-dropdown-close 0.25s ease-in forwards;
   --animate-category-card-enter: category-card-fade-in 1.2s ease-out forwards;
+  --animate-projects-header-enter: projects-header-pop-in 0.85s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-hero-headline-slide-in: hero-headline-slide-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-cta-arrow-nudge: cta-arrow-nudge 1.1s ease-in-out infinite;
   --animate-float-triangle: float-triangle 22s ease-in-out infinite;
@@ -38,6 +39,18 @@
 
   to {
     opacity: 1;
+  }
+}
+
+@keyframes projects-header-pop-in {
+  from {
+    opacity: 0;
+    transform: translateY(40px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
   }
 }
 

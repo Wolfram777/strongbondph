@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 import { HiArrowRight } from 'react-icons/hi2'
 import { Link } from 'react-router-dom'
 import hero from '../assets/images/hero2.jpg'
@@ -6,6 +6,8 @@ import kalilayan from '../assets/images/kalilayan.jpg'
 import grandhyatt from '../assets/images/grandhyatt.jpg'
 import vertisnorth from '../assets/images/vertisnorth.jpg'
 import FloatingTriangles from '../components/FloatingTriangles.tsx'
+import ProductCardScroller from '../components/ProductCardScroller.tsx'
+import { featuredProducts, type FeaturedProduct } from '../data/featuredProducts.ts'
 
 const categories = [
   {
@@ -32,6 +34,14 @@ const categories = [
 export default function Home() {
   const sectionRef = useRef<HTMLElement>(null)
   const [cardsVisible, setCardsVisible] = useState(false)
+  const [activeProduct, setActiveProduct] = useState(featuredProducts[0])
+
+  const handleActiveProductChange = useCallback(
+    (_index: number, product: FeaturedProduct) => {
+      setActiveProduct(product)
+    },
+    [],
+  )
 
   useEffect(() => {
     const section = sectionRef.current
@@ -90,13 +100,18 @@ export default function Home() {
         className="relative flex min-h-screen flex-col gap-2 bg-white px-4 py-10 sm:py-12 md:gap-3 md:px-24 md:py-8"
       >
         <FloatingTriangles />
-        <h2
-          className={`relative z-10 text-center text-3xl font-bold uppercase tracking-tight text-brand-menu sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl ${
-            cardsVisible ? 'animate-category-card-enter' : 'opacity-0'
+        <div
+          className={`relative z-10 mx-auto w-fit bg-white px-4 py-3 text-center sm:px-6 sm:py-4 ${
+            cardsVisible ? 'animate-projects-header-enter' : 'opacity-0 translate-y-10'
           }`}
         >
-          OUR PROJECTS
-        </h2>
+          <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-menu sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+            OUR PROJECTS
+          </h2>
+          <p className="mt-1 max-w-xl text-sm leading-relaxed text-brand-menu sm:mt-2 sm:text-base md:text-lg">
+            A look at the structures we've strengthened across the Philippines
+          </p>
+        </div>
         <div className="relative z-10 flex flex-col gap-4 sm:gap-5 md:flex-row md:gap-8">
         {categories.map((category, index) => (
           <a
@@ -140,6 +155,61 @@ export default function Home() {
             </div>
           </a>
         ))}
+        </div>
+      </section>
+
+      <section className="bg-brand-gold">
+        <div className="flex flex-col gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:px-8 lg:grid lg:h-screen lg:grid-cols-5 lg:gap-0 lg:px-0 lg:py-0">
+          <div className="relative lg:col-span-2 lg:min-h-0">
+            <div className="lg:absolute lg:left-24 lg:top-8 lg:z-10">
+              <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-menu sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
+                FEATURED PRODUCTS
+              </h2>
+              <p className="mt-1 max-w-xl text-sm leading-relaxed text-brand-menu sm:mt-2 sm:text-base md:text-lg">
+                The trusted products behind every structure we strengthen
+              </p>
+            </div>
+            <div className="hidden lg:flex lg:h-full lg:items-center lg:px-24">
+              <p className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
+                {activeProduct.name}
+              </p>
+            </div>
+            <div
+              className="hidden lg:absolute lg:bottom-[calc((100vh-min(72vh,600px))/2)] lg:left-24 lg:z-10 lg:block"
+            >
+              <Link
+                to="/products"
+                className="group inline-flex items-center gap-2 rounded-md bg-brand-plum px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-brand-plum sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base"
+              >
+                View More Products
+                <HiArrowRight
+                  className="h-4 w-4 animate-cta-arrow-nudge sm:h-5 sm:w-5"
+                  aria-hidden="true"
+                />
+              </Link>
+            </div>
+          </div>
+          <div className="lg:col-span-3 lg:flex lg:min-h-0 lg:min-w-0 lg:items-center lg:pl-4 lg:pr-24">
+            <ProductCardScroller
+              products={featuredProducts}
+              onActiveChange={handleActiveProductChange}
+            />
+          </div>
+          <div className="flex flex-col items-start gap-6 lg:hidden">
+            <p className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+              {activeProduct.name}
+            </p>
+            <Link
+              to="/products"
+              className="group inline-flex w-fit items-center gap-2 rounded-md bg-brand-plum px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-brand-plum sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base"
+            >
+              View More Products
+              <HiArrowRight
+                className="h-4 w-4 animate-cta-arrow-nudge sm:h-5 sm:w-5"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
         </div>
       </section>
     </div>
