@@ -7,11 +7,12 @@ import wedge from '../assets/products/wedge.png'
 export type FeaturedProduct = {
   name: string
   image: string
+  imageRotated?: boolean
 }
 
 export const featuredProducts: FeaturedProduct[] = [
-  { name: 'ETI', image: eti },
-  { name: 'ETB Nylon', image: etbnylon },
+  { name: 'ETI', image: eti, imageRotated: true },
+  { name: 'ETB Nylon', image: etbnylon, imageRotated: true },
   { name: 'ETHP', image: ethp },
   { name: 'SET XP', image: setxp },
   { name: 'Wedge', image: wedge },

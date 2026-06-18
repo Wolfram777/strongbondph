@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef } from 'react'
 import { HiChevronLeft, HiChevronRight } from 'react-icons/hi2'
 import type { FeaturedProduct } from '../data/featuredProducts.ts'
 
@@ -7,7 +7,6 @@ const MOMENTUM_MULTIPLIER = 8
 const MOMENTUM_FRICTION = 0.72
 const MOMENTUM_MIN_VELOCITY = 0.25
 const SNAP_DURATION_MS = 550
-const LANDSCAPE_ASPECT_THRESHOLD = 1.5
 
 const easeOutCubic = (t: number) => 1 - (1 - t) ** 3
 
@@ -34,9 +33,6 @@ export default function ProductCardScroller({
   const activeIndexRef = useRef(0)
   const isSnappingRef = useRef(false)
   const hasInitialFocusRef = useRef(false)
-  const [landscapeIndices, setLandscapeIndices] = useState<Set<number>>(
-    () => new Set(),
-  )
   const onActiveChangeRef = useRef(onActiveChange)
   const productCount = products.length
   const extendedProducts =
@@ -364,23 +360,9 @@ export default function ProductCardScroller({
             <img
               src={product.image}
               alt={product.name}
-              onLoad={(e) => {
-                const img = e.currentTarget
-                if (
-                  img.naturalWidth / img.naturalHeight >
-                  LANDSCAPE_ASPECT_THRESHOLD
-                ) {
-                  setLandscapeIndices((prev) => {
-                    if (prev.has(logicalIndex)) return prev
-                    const next = new Set(prev)
-                    next.add(logicalIndex)
-                    return next
-                  })
-                }
-              }}
-              className={`absolute inset-0 h-full w-full object-contain p-4 transition-transform duration-500 ease-out group-hover:scale-105 sm:p-6 lg:p-8 ${
-                landscapeIndices.has(logicalIndex) ? '-rotate-90' : ''
-              }`}
+              className={`absolute inset-0 h-full w-full object-contain p-4 sm:p-6 lg:p-8 ${
+                product.imageRotated ? '-rotate-90' : ''
+              } group-hover:scale-105 group-hover:transition-transform group-hover:duration-500 group-hover:ease-out`}
               draggable={false}
             />
           </div>

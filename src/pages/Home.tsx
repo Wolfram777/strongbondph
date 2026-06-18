@@ -33,7 +33,9 @@ const categories = [
 
 export default function Home() {
   const sectionRef = useRef<HTMLElement>(null)
+  const productsSectionRef = useRef<HTMLElement>(null)
   const [cardsVisible, setCardsVisible] = useState(false)
+  const [productsVisible, setProductsVisible] = useState(false)
   const [activeProduct, setActiveProduct] = useState(featuredProducts[0])
 
   const handleActiveProductChange = useCallback(
@@ -55,6 +57,24 @@ export default function Home() {
         }
       },
       { threshold: 0.2 },
+    )
+
+    observer.observe(section)
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    const section = productsSectionRef.current
+    if (!section) return
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setProductsVisible(true)
+          observer.disconnect()
+        }
+      },
+      { threshold: 0.15 },
     )
 
     observer.observe(section)
@@ -158,10 +178,16 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-brand-gold">
+      <section ref={productsSectionRef} className="bg-brand-gold">
         <div className="flex flex-col gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:px-8 lg:grid lg:h-screen lg:grid-cols-5 lg:gap-0 lg:px-0 lg:py-0">
           <div className="relative lg:col-span-2 lg:min-h-0">
-            <div className="lg:absolute lg:left-24 lg:top-8 lg:z-10">
+            <div
+              className={`lg:absolute lg:left-24 lg:top-8 lg:z-10 ${
+                productsVisible
+                  ? 'animate-products-slide-in-left'
+                  : 'opacity-0 -translate-x-12'
+              }`}
+            >
               <h2 className="text-3xl font-bold uppercase tracking-tight text-brand-menu sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl">
                 FEATURED PRODUCTS
               </h2>
@@ -169,13 +195,29 @@ export default function Home() {
                 The trusted products behind every structure we strengthen
               </p>
             </div>
-            <div className="hidden lg:flex lg:h-full lg:items-center lg:px-24">
+            <div
+              className={`hidden lg:flex lg:h-full lg:items-center lg:px-24 ${
+                productsVisible
+                  ? 'animate-products-slide-in-left'
+                  : 'opacity-0 -translate-x-12'
+              }`}
+              style={
+                productsVisible ? { animationDelay: '0.15s' } : undefined
+              }
+            >
               <p className="text-4xl font-bold leading-tight text-white sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl">
                 {activeProduct.name}
               </p>
             </div>
             <div
-              className="hidden lg:absolute lg:bottom-[calc((100vh-min(72vh,600px))/2)] lg:left-24 lg:z-10 lg:block"
+              className={`hidden lg:absolute lg:bottom-[calc((100vh-min(72vh,600px))/2)] lg:left-24 lg:z-10 lg:block ${
+                productsVisible
+                  ? 'animate-products-rise-in'
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={
+                productsVisible ? { animationDelay: '0.45s' } : undefined
+              }
             >
               <Link
                 to="/products"
@@ -189,19 +231,44 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <div className="lg:col-span-3 lg:flex lg:min-h-0 lg:min-w-0 lg:items-center lg:pl-4 lg:pr-24">
+          <div
+            className={`lg:col-span-3 lg:flex lg:min-h-0 lg:min-w-0 lg:items-center lg:pl-4 lg:pr-24 ${
+              productsVisible
+                ? 'animate-products-slide-in-right'
+                : 'opacity-0 translate-x-12'
+            }`}
+            style={
+              productsVisible ? { animationDelay: '0.3s' } : undefined
+            }
+          >
             <ProductCardScroller
               products={featuredProducts}
               onActiveChange={handleActiveProductChange}
             />
           </div>
           <div className="flex flex-col items-start gap-6 lg:hidden">
-            <p className="text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl">
+            <p
+              className={`text-3xl font-bold leading-tight text-white sm:text-4xl md:text-5xl ${
+                productsVisible
+                  ? 'animate-products-slide-in-left'
+                  : 'opacity-0 -translate-x-12'
+              }`}
+              style={
+                productsVisible ? { animationDelay: '0.35s' } : undefined
+              }
+            >
               {activeProduct.name}
             </p>
             <Link
               to="/products"
-              className="group inline-flex w-fit items-center gap-2 rounded-md bg-brand-plum px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-brand-plum sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base"
+              className={`group inline-flex w-fit items-center gap-2 rounded-md bg-brand-plum px-6 py-3 text-sm font-semibold text-white transition-colors duration-300 hover:bg-white hover:text-brand-plum sm:gap-2.5 sm:px-8 sm:py-3.5 sm:text-base ${
+                productsVisible
+                  ? 'animate-products-rise-in'
+                  : 'opacity-0 translate-y-8'
+              }`}
+              style={
+                productsVisible ? { animationDelay: '0.5s' } : undefined
+              }
             >
               View More Products
               <HiArrowRight
