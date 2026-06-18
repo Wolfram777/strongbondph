@@ -3,6 +3,7 @@ import etbnylon from '../assets/products/etbnylon.png'
 import ethp from '../assets/products/ethp.png'
 import setxp from '../assets/products/setxp.png'
 import wedge from '../assets/products/wedge.png'
+import rfb from '../assets/products/rfb.png'
 
 export type FeaturedProduct = {
   name: string
@@ -16,4 +17,5 @@ export const featuredProducts: FeaturedProduct[] = [
   { name: 'ETHP', image: ethp },
   { name: 'SET XP', image: setxp },
   { name: 'Wedge', image: wedge },
+  { name: 'RFB', image: rfb },
 ]
