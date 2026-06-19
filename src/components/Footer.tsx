@@ -63,24 +63,56 @@ export default function Footer() {
             />
           </button>
 
-          <div className="flex items-center justify-between gap-3 md:contents">
-            <nav
-              className="flex min-w-0 flex-1 flex-nowrap items-center justify-between gap-x-1 text-[11px] font-semibold text-brand-menu min-[400px]:gap-x-3 min-[400px]:text-xs min-[520px]:justify-start min-[520px]:gap-x-4 min-[520px]:text-sm md:col-start-2 md:row-start-1 md:flex-none md:self-center md:gap-x-5 md:text-base lg:gap-x-6 lg:text-lg"
-              aria-label="Footer"
-            >
-              {navLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  to={link.href}
-                  className="shrink-0 whitespace-nowrap transition-colors hover:text-brand-plum hover:underline"
-                >
-                  {link.label}
-                </Link>
-              ))}
-            </nav>
-            <div
-              className="flex shrink-0 items-center gap-3 sm:gap-4 md:col-start-3 md:row-start-1 md:justify-end md:self-center"
-            >
+          <nav
+            className="flex min-w-0 w-full flex-nowrap items-center justify-between gap-x-1 text-[11px] font-semibold text-brand-menu min-[400px]:gap-x-3 min-[400px]:text-xs min-[520px]:justify-start min-[520px]:gap-x-4 min-[520px]:text-sm md:col-start-2 md:row-start-1 md:w-auto md:self-center md:gap-x-5 md:text-base lg:gap-x-6 lg:text-lg"
+            aria-label="Footer"
+          >
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                className="shrink-0 whitespace-nowrap transition-colors hover:text-brand-plum hover:underline"
+              >
+                {link.label}
+              </Link>
+            ))}
+          </nav>
+
+          <div
+            className="hidden items-center gap-3 sm:gap-4 md:col-start-3 md:row-start-1 md:flex md:justify-end md:self-center"
+          >
+            {socialLinks.map((social) => (
+              <a
+                key={social.label}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={social.label}
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-gray-200 text-brand-plum transition-colors hover:border-brand-plum hover:bg-brand-plum hover:text-white sm:h-11 sm:w-11"
+              >
+                <social.icon
+                  className="h-4 w-4 sm:h-5 sm:w-5"
+                  aria-hidden="true"
+                />
+              </a>
+            ))}
+          </div>
+
+          <p
+            className="max-w-xs text-xs leading-relaxed text-gray-600 sm:text-sm md:col-start-1 md:row-start-2 md:self-start"
+          >
+            © 2026 Strongbond Philippines Inc. (formerly Strongbond Products
+            Philippines Inc.) All Rights Reserved
+          </p>
+          <p
+            className="max-w-md text-xs leading-relaxed text-gray-600 sm:text-sm md:col-start-2 md:row-start-2 md:self-start"
+          >
+            Integrity beyond structure. Engineering solutions that strengthen
+            buildings and infrastructure across the Philippines.
+          </p>
+
+          <div className="flex items-center justify-between gap-4 md:hidden">
+            <div className="flex items-center gap-3 sm:gap-4">
               {socialLinks.map((social) => (
                 <a
                   key={social.label}
@@ -97,22 +129,25 @@ export default function Footer() {
                 </a>
               ))}
             </div>
+            <p className="text-right text-xs leading-relaxed text-gray-600 sm:text-sm">
+              Get a quote:{' '}
+              <a
+                href="tel:+639171526843"
+                className="transition-colors hover:text-brand-plum"
+              >
+                +63 0917 152 6843
+              </a>{' '}
+              <a
+                href="tel:+63286545853"
+                className="transition-colors hover:text-brand-plum"
+              >
+                (02) 8654-5853
+              </a>
+            </p>
           </div>
 
           <p
-            className="max-w-xs text-xs leading-relaxed text-gray-600 sm:text-sm md:col-start-1 md:row-start-2 md:self-start"
-          >
-            © 2026 Strongbond Philippines Inc. (formerly Strongbond Products
-            Philippines Inc.) All Rights Reserved
-          </p>
-          <p
-            className="max-w-md text-xs leading-relaxed text-gray-600 sm:text-sm md:col-start-2 md:row-start-2 md:self-start"
-          >
-            Integrity beyond structure. Engineering solutions that strengthen
-            buildings and infrastructure across the Philippines.
-          </p>
-          <p
-            className="text-right text-xs leading-relaxed text-gray-600 sm:text-sm md:col-start-3 md:row-start-2 md:self-start"
+            className="hidden text-right text-xs leading-relaxed text-gray-600 sm:text-sm md:col-start-3 md:row-start-2 md:block md:self-start"
           >
             Get a quote:{' '}
             <a
