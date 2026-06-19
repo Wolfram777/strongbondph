@@ -12,8 +12,8 @@ type NavItem = {
 
 const navLinks: NavItem[] = [
   { label: 'PROJECTS', href: '/projects' },
-  { label: 'SERVICES', href: '/services' },
   { label: 'PRODUCTS', href: '/products' },
+  { label: 'SERVICES', href: '/services' },
   { label: 'ABOUT US', href: '/about-us' },
 ]
 
@@ -87,9 +87,19 @@ export default function Navbar() {
   const [menuClosing, setMenuClosing] = useState(false)
   const menuRef = useRef<HTMLDivElement>(null)
   const closeTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const scrolledRef = useRef(false)
 
   useLenis((lenis) => {
-    setScrolled(lenis.scroll > 20)
+    const update = () => {
+      const next = lenis.scroll > 20
+      if (scrolledRef.current === next) return
+      scrolledRef.current = next
+      setScrolled(next)
+    }
+
+    update()
+    lenis.on('scroll', update)
+    return () => lenis.off('scroll', update)
   })
 
   const openMenu = () => {

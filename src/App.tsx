@@ -1,4 +1,5 @@
 import { Route, BrowserRouter as Router, Routes } from 'react-router-dom'
+import Footer from './components/Footer.tsx'
 import Navbar from './components/Navbar.tsx'
 import SmoothScroll from './components/SmoothScroll.tsx'
 import AboutUs from './pages/AboutUs.tsx'
@@ -23,6 +24,7 @@ function App() {
           <Route path="/clients" element={<Clients />} />
           <Route path="/contact-us" element={<ContactUs />} />
         </Routes>
+        <Footer />
       </Router>
     </SmoothScroll>
   )

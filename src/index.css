@@ -20,6 +20,7 @@
   --animate-hero-headline-slide-in: hero-headline-slide-in 1.4s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-cta-arrow-nudge: cta-arrow-nudge 1.1s ease-in-out infinite;
   --animate-float-triangle: float-triangle 22s ease-in-out infinite;
+  --animate-float-triangle-alt: float-triangle-alt 22s ease-in-out infinite;
   --animate-card-arrow-nudge: card-arrow-nudge 0.75s ease-in-out infinite;
 }
 
@@ -132,11 +133,11 @@
   }
 
   33% {
-    transform: translate3d(24px, -32px, 0) rotate(calc(var(--triangle-rotate, 0deg) + 10deg));
+    transform: translate3d(24px, -32px, 0) rotate(calc(var(--triangle-rotate, 0deg) + 24deg));
   }
 
   66% {
-    transform: translate3d(-18px, 22px, 0) rotate(calc(var(--triangle-rotate, 0deg) - 8deg));
+    transform: translate3d(-18px, 22px, 0) rotate(calc(var(--triangle-rotate, 0deg) - 20deg));
   }
 }
 
@@ -147,11 +148,11 @@
   }
 
   40% {
-    transform: translate3d(-22px, 18px, 0) rotate(calc(var(--triangle-rotate, 0deg) - 12deg));
+    transform: translate3d(-22px, 18px, 0) rotate(calc(var(--triangle-rotate, 0deg) - 22deg));
   }
 
   70% {
-    transform: translate3d(16px, -24px, 0) rotate(calc(var(--triangle-rotate, 0deg) + 9deg));
+    transform: translate3d(16px, -24px, 0) rotate(calc(var(--triangle-rotate, 0deg) + 20deg));
   }
 }
 
@@ -179,5 +180,9 @@
 
   body {
     @apply font-sans antialiased;
+  }
+
+  .float-circle-orbit {
+    transform-origin: 28% 72%;
   }
 }

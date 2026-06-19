@@ -5,8 +5,10 @@ import hero from '../assets/images/hero2.jpg'
 import kalilayan from '../assets/images/kalilayan.jpg'
 import grandhyatt from '../assets/images/grandhyatt.jpg'
 import vertisnorth from '../assets/images/vertisnorth.jpg'
-import FloatingTriangles from '../components/FloatingTriangles.tsx'
+import FloatingCircles from '../components/FloatingCircles.tsx'
+import FloatingOutlinedCircleLayer from '../components/FloatingOutlinedCircle.tsx'
 import ProductCardScroller from '../components/ProductCardScroller.tsx'
+import ServicesScrollSection from '../components/ServicesScrollSection.tsx'
 import { featuredProducts, type FeaturedProduct } from '../data/featuredProducts.ts'
 
 const categories = [
@@ -119,7 +121,7 @@ export default function Home() {
         ref={sectionRef}
         className="relative flex min-h-screen flex-col gap-2 bg-white px-4 py-10 sm:py-12 md:gap-3 md:px-24 md:py-8"
       >
-        <FloatingTriangles />
+        <FloatingCircles />
         <div
           className={`relative z-10 mx-auto w-fit bg-white px-4 py-3 text-center sm:px-6 sm:py-4 ${
             cardsVisible ? 'animate-projects-header-enter' : 'opacity-0 translate-y-10'
@@ -132,7 +134,7 @@ export default function Home() {
             A look at the structures we've strengthened across the Philippines
           </p>
         </div>
-        <div className="relative z-10 flex flex-col gap-4 sm:gap-5 md:flex-row md:gap-8">
+        <div className="relative z-10 flex flex-col gap-4 sm:gap-5 md:flex-row md:gap-6 lg:gap-8">
         {categories.map((category, index) => (
           <a
             key={category.label}
@@ -140,7 +142,7 @@ export default function Home() {
             style={
               cardsVisible ? { animationDelay: `${index * 200}ms` } : undefined
             }
-            className={`group relative min-h-[200px] w-full flex-1 cursor-pointer overflow-hidden rounded-xl opacity-0 sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl ${
+            className={`group relative min-h-[200px] w-full min-w-0 flex-1 cursor-pointer overflow-hidden rounded-xl opacity-0 sm:min-h-[240px] md:h-[75vh] md:max-h-[75vh] md:rounded-2xl ${
               cardsVisible ? 'animate-category-card-enter' : ''
             }`}
           >
@@ -155,9 +157,9 @@ export default function Home() {
               className="absolute top-4 right-4 z-10 h-8 w-8 text-white transition-colors duration-300 group-hover:animate-card-arrow-nudge group-hover:text-brand-plum sm:top-5 sm:right-5 sm:h-10 sm:w-10 md:top-8 md:right-8 md:h-12 md:w-12"
               aria-hidden="true"
             />
-            <div className="absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5 md:p-8">
+            <div className="absolute inset-x-0 bottom-0 z-10 p-4 sm:p-5 md:p-5 lg:p-8">
               <p
-                className="text-2xl font-bold uppercase text-white transition-transform duration-500 ease-out group-hover:-translate-y-2 sm:text-3xl md:text-5xl md:group-hover:-translate-y-3 lg:text-6xl"
+                className="max-w-full text-2xl font-bold uppercase leading-[1.05] tracking-tight text-white transition-transform duration-500 ease-out group-hover:-translate-y-2 sm:text-3xl md:text-[clamp(1.125rem,2vw+0.5rem,1.625rem)] lg:text-[clamp(2rem,2.5vw+1rem,3.75rem)] md:group-hover:-translate-y-3"
               >
                 {category.label}
               </p>
@@ -181,8 +183,25 @@ export default function Home() {
       <section ref={productsSectionRef} className="bg-brand-gold">
         <div className="flex flex-col gap-6 px-4 py-10 sm:gap-8 sm:px-6 sm:py-12 md:px-8 lg:grid lg:h-screen lg:grid-cols-5 lg:gap-0 lg:px-0 lg:py-0">
           <div className="relative lg:col-span-2 lg:min-h-0">
+            <FloatingOutlinedCircleLayer
+              className="hidden lg:block"
+              circles={[
+                { color: '#cfc3d7', size: 'large', align: 'left' },
+                {
+                  color: '#efc66c',
+                  size: 'small',
+                  align: 'left',
+                  top: '58%',
+                  left: '44%',
+                  rotation: -14,
+                  animation: 'float-triangle-alt',
+                  duration: 20,
+                  delay: 0.8,
+                },
+              ]}
+            />
             <div
-              className={`lg:absolute lg:left-24 lg:top-[calc((100vh-min(72vh,600px))/2)] lg:z-10 ${
+              className={`relative z-10 lg:absolute lg:left-24 lg:top-[calc((100vh-min(72vh,600px))/2)] lg:z-10 ${
                 productsVisible
                   ? 'animate-products-slide-in-left'
                   : 'opacity-0 -translate-x-12'
@@ -196,7 +215,7 @@ export default function Home() {
               </p>
             </div>
             <div
-              className={`hidden lg:flex lg:h-full lg:items-center lg:px-24 ${
+              className={`relative z-10 hidden lg:flex lg:h-full lg:items-center lg:px-24 ${
                 productsVisible
                   ? 'animate-products-slide-in-left'
                   : 'opacity-0 -translate-x-12'
@@ -210,7 +229,7 @@ export default function Home() {
               </p>
             </div>
             <div
-              className={`hidden lg:absolute lg:bottom-[calc((100vh-min(72vh,600px))/2)] lg:left-24 lg:z-10 lg:block ${
+              className={`relative z-10 hidden lg:absolute lg:bottom-[calc((100vh-min(72vh,600px))/2)] lg:left-24 lg:z-10 lg:block ${
                 productsVisible
                   ? 'animate-products-rise-in'
                   : 'opacity-0 translate-y-8'
@@ -279,6 +298,8 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      <ServicesScrollSection />
     </div>
   )
 }

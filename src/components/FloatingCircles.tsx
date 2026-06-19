@@ -1,11 +1,11 @@
-const TRIANGLE_COLORS = [
+const CIRCLE_COLORS = [
   '#cfc3d7',
   '#d6b450',
   '#efc66c',
   '#6b2b5e',
 ] as const
 
-type FloatingTriangle = {
+type FloatingCircle = {
   size: number
   top: number
   left: number
@@ -16,12 +16,12 @@ type FloatingTriangle = {
   animation: 'float-triangle' | 'float-triangle-alt'
 }
 
-const triangles: FloatingTriangle[] = [
+const circles: FloatingCircle[] = [
   {
     size: 340,
     top: 8,
     left: 2,
-    color: TRIANGLE_COLORS[0],
+    color: CIRCLE_COLORS[0],
     duration: 24,
     delay: 0,
     rotation: 12,
@@ -31,7 +31,7 @@ const triangles: FloatingTriangle[] = [
     size: 220,
     top: 18,
     left: 28,
-    color: TRIANGLE_COLORS[1],
+    color: CIRCLE_COLORS[1],
     duration: 18,
     delay: 1.2,
     rotation: -18,
@@ -41,7 +41,7 @@ const triangles: FloatingTriangle[] = [
     size: 280,
     top: 5,
     left: 52,
-    color: TRIANGLE_COLORS[3],
+    color: CIRCLE_COLORS[3],
     duration: 22,
     delay: 0.5,
     rotation: 25,
@@ -51,7 +51,7 @@ const triangles: FloatingTriangle[] = [
     size: 185,
     top: 35,
     left: 72,
-    color: TRIANGLE_COLORS[2],
+    color: CIRCLE_COLORS[2],
     duration: 16,
     delay: 2,
     rotation: -10,
@@ -61,7 +61,7 @@ const triangles: FloatingTriangle[] = [
     size: 400,
     top: 58,
     left: 82,
-    color: TRIANGLE_COLORS[0],
+    color: CIRCLE_COLORS[0],
     duration: 28,
     delay: 0.8,
     rotation: 8,
@@ -71,7 +71,7 @@ const triangles: FloatingTriangle[] = [
     size: 155,
     top: 72,
     left: 8,
-    color: TRIANGLE_COLORS[1],
+    color: CIRCLE_COLORS[1],
     duration: 19,
     delay: 2.5,
     rotation: -22,
@@ -81,7 +81,7 @@ const triangles: FloatingTriangle[] = [
     size: 310,
     top: 65,
     left: 38,
-    color: TRIANGLE_COLORS[3],
+    color: CIRCLE_COLORS[3],
     duration: 21,
     delay: 1.5,
     rotation: 15,
@@ -91,7 +91,7 @@ const triangles: FloatingTriangle[] = [
     size: 235,
     top: 42,
     left: 12,
-    color: TRIANGLE_COLORS[2],
+    color: CIRCLE_COLORS[2],
     duration: 17,
     delay: 3,
     rotation: -14,
@@ -101,7 +101,7 @@ const triangles: FloatingTriangle[] = [
     size: 295,
     top: 22,
     left: 88,
-    color: TRIANGLE_COLORS[0],
+    color: CIRCLE_COLORS[0],
     duration: 20,
     delay: 1,
     rotation: 20,
@@ -111,7 +111,7 @@ const triangles: FloatingTriangle[] = [
     size: 170,
     top: 80,
     left: 58,
-    color: TRIANGLE_COLORS[2],
+    color: CIRCLE_COLORS[2],
     duration: 15,
     delay: 0.3,
     rotation: -8,
@@ -119,33 +119,34 @@ const triangles: FloatingTriangle[] = [
   },
 ]
 
-export default function FloatingTriangles() {
+export default function FloatingCircles() {
   return (
     <div
-      className="pointer-events-none absolute inset-0 overflow-hidden [--triangle-scale:0.38] sm:[--triangle-scale:0.52] md:[--triangle-scale:0.68] lg:[--triangle-scale:0.82] xl:[--triangle-scale:1]"
+      className="pointer-events-none absolute inset-0 overflow-hidden [--circle-scale:0.38] sm:[--circle-scale:0.52] md:[--circle-scale:0.68] lg:[--circle-scale:0.82] xl:[--circle-scale:1]"
       aria-hidden="true"
     >
-      {triangles.map((triangle, index) => (
-        <span
-          key={index}
-          className={`absolute will-change-transform ${
-            triangle.animation === 'float-triangle-alt'
-              ? 'animate-float-triangle-alt'
-              : 'animate-float-triangle'
-          }`}
-          style={{
-            width: `calc(${triangle.size}px * var(--triangle-scale))`,
-            height: `calc(${triangle.size}px * var(--triangle-scale))`,
-            top: `${triangle.top}%`,
-            left: `${triangle.left}%`,
-            backgroundColor: triangle.color,
-            clipPath: 'polygon(50% 0%, 0% 100%, 100% 100%)',
-            ['--triangle-rotate' as string]: `${triangle.rotation}deg`,
-            animationDuration: `${triangle.duration}s`,
-            animationDelay: `${triangle.delay}s`,
-          }}
-        />
-      ))}
+      {circles.map((circle, index) => {
+        const animationName =
+          circle.animation === 'float-triangle-alt'
+            ? 'float-triangle-alt'
+            : 'float-triangle'
+
+        return (
+          <span
+            key={index}
+            className="float-circle-orbit absolute rounded-full border-[4px] bg-transparent will-change-transform sm:border-[5px]"
+            style={{
+              width: `calc(${circle.size}px * var(--circle-scale))`,
+              height: `calc(${circle.size}px * var(--circle-scale))`,
+              top: `${circle.top}%`,
+              left: `${circle.left}%`,
+              borderColor: circle.color,
+              ['--triangle-rotate' as string]: `${circle.rotation}deg`,
+              animation: `${animationName} ${circle.duration}s ease-in-out ${circle.delay}s infinite`,
+            }}
+          />
+        )
+      })}
     </div>
   )
 }
